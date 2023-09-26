@@ -1,9 +1,9 @@
 :root {
-  --primary: #ccdad1;
+  /*--primary: #ccdad1;*/
   --secondary: #9caea9;
   --tertiary: #788585;
-  --light-dark: #6f6866;
-  --dark: #38302e;
+  --light-dark: #4bc4dc;
+  /*--dark: #38302e;*/
   --border-radius: .3rem;
 }
 
@@ -180,7 +180,7 @@ p {
   padding: 3%;
   margin: 5px 0;
   font-size: 1.2rem;
-  border: 2px solid var(--light-dark);
+  border: 2px solid var(black);
   border-radius: var(--border-radius);
 }
 
