@@ -21,9 +21,9 @@
         <div class="col-12 col-md-3">
             <!--search-->
             <div class="card">
-                <form>
+                <form id="city-form">
                     <label class="form-label" for="enterCity">Search for a City:</label>
-                    <input form="enterCity" type="text" autofocus="true" class="form-input" placeholder="Enter City"/>
+                    <input name="enterCity" id="enterCity" type="text" autofocus="true" class="form-input" placeholder="Enter City"/>
                     <button type="submit" class="btn">Search</button>
                 </form>
             </div>
@@ -37,12 +37,8 @@
         <div class="col-12 col-md-9">
             <!--current info-->
             <div id="info">
-                <p>blaa blaa blaa</p>
-
-                <p>yada yada yada</p>
-
-                <p>stuff buisness stuff</p>
-
+                <h2 class="subtitle">Showing Current Conditions For <span id="weather-search-term"></span></h2>
+                <div id="weather-container" class="list-group"></div>
             </div>
             <!--5 day forecast-->
             <div>
