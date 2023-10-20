@@ -66,16 +66,31 @@ var displayWeather = function (weatherData, searchTerm,) {
     
 
         // Check if weatherData contains 'main' property
+        // H2 needs to be searchterm and current date .... use day.js
+        // need to put in temp, wind, humidity, and UV index
+        
         if (weatherData && weatherData.main) {
+
             var temperature = weatherData.main.temp;
             var temperatureDiv = document.createElement('div');
             temperatureDiv.textContent = 'Temperature: ' + temperature + '°F';
             weatherContainerEl.appendChild(temperatureDiv);
 
-            var feelsLike = weatherData.main.feels_like;
-            var feelsLikeDiv = document.createElement('div');
-            feelsLikeDiv.textContent = 'Feels Like: ' + feelsLike + '°F';
-            weatherContainerEl.appendChild(feelsLikeDiv);
+            var wind = weatherData.wind.speed;
+            var windDiv = document.createElement('div');
+            windDiv.textContent = 'Wind: ' + wind + ' MPH';
+            weatherContainerEl.appendChild(windDiv);
+
+            var humidity = weatherData.main.humidity;
+            var humDiv = document.createElement('div');
+            humDiv.textContent = 'Humidity: ' + humidity + ' %';
+            weatherContainerEl.appendChild(humDiv);
+
+            var rise = weatherData.sys.sunrise;
+            var riseDiv = document.createElement('div');
+            riseDiv.textContent = 'Sunrise: ' + rise;
+            weatherContainerEl.appendChild(riseDiv);
+
         } else {
             // Handle the case where 'main' property is not available in the response
             var errorDiv = document.createElement('div');
