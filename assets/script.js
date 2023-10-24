@@ -2,6 +2,7 @@ var cityFormEl = document.querySelector('#city-form');
 var cityInputEl = document.querySelector('#enterCity');
 var weatherContainerEl = document.querySelector('#weather-container');
 var weatherSearchTerm = document.querySelector('#weather-search-term');
+var now = dayjs().format('MMMM DD, YYYY');
 
 var getWeather = function(name) {
 
@@ -61,7 +62,9 @@ var displayWeather = function (weatherData, searchTerm,) {
 
     // clear old content
     weatherContainerEl.textContent = '';
-    weatherSearchTerm.textContent = searchTerm;
+    weatherSearchTerm.textContent = searchTerm + ' ' + now;
+
+    //weatherSearchTerm.textContent = now;
     
     
 
