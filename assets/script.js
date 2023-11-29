@@ -3,8 +3,7 @@ var cityFormEl = document.querySelector('#city-form');
 var cityInputEl = document.querySelector('#enterCity');
 var weatherContainerEl = document.querySelector('#weather-container');
 var weatherSearchTerm = document.querySelector('#weather-search-term');
-var fiveCard = document.querySelector('#fiveCard');
-var fiveDiv = document.querySelector('#fiveDiv');
+var fiveCard = document.querySelector('#card');
 var now = dayjs().format('MMMM DD, YYYY');
 
 
@@ -45,22 +44,6 @@ var getWeather = function(name) {
 
 }
 
-var formSubmitHandler = function(event) {
-
-    event.preventDefault();
-
-    // get value from input element 
-    var city = cityInputEl.value.trim();
-    if(city) {
-        getWeather(city);
-        fiveDay(city);
-        cityInputEl.value = '';
-    } else {
-        alert('Enter a city you dingus');
-    }
-  
-};
-
 
 var displayWeather = function (weatherData, searchTerm,) {
 
@@ -69,12 +52,25 @@ var displayWeather = function (weatherData, searchTerm,) {
 
     // clear old content
     weatherContainerEl.textContent = '';
-    weatherSearchTerm.textContent = searchTerm + ' ' + now;
+    // weatherSearchTerm.textContent = searchTerm + ' ' + now;
+
+    if (searchTerm == null) {
+        weatherSearchTerm.textContent = now;
+    } else {
+        weatherSearchTerm.textContent = searchTerm + ' ' + now;
+    }
 
     
         // need to add in icons for weather
         
         if (weatherData && weatherData.main) {
+
+            // var iconCode = weatherData.weather.icon;
+            // var iconUrl = 'https://openweathermap.org/img/wn/' + iconCode + '.png';
+            // console.log(iconUrl);
+            // var iconDiv = document.createElement('div');
+            // iconDiv.append(iconUrl);
+            // weatherContainerEl.appendChild(iconDiv);
 
             var temperature = weatherData.main.temp;
             var temperatureDiv = document.createElement('div');
@@ -117,31 +113,93 @@ var fiveDay = function(name) {
 
     fetch(fiveUrl).then(function(response) {
         response.json().then(function(data) {
-            // data.list to access the list of the array
-            displayFive(data.list, name);
+            displayFive(data, name);
         });
     });
+
+    // var fiveUrl = 'https://api.openweathermap.org/data/2.5/forecast?q=' + name + '&APPID=28d6a72429cf685ec90ed4979e8a1345&units=imperial';
+
+    // fetch(fiveUrl)
+    //     .then(function(response) {
+    //         if (!response.ok) {
+    //             throw new Error('Network response was not ok');
+    //         }
+    //         return response.json();
+    //     })
+    //     .then(function(data) {
+    //         // Call displayFive with the fetched data
+    //         displayFive(data, name);
+    //     })
+    //     .catch(function(error) {
+    //         console.error('Error:', error);
+    //         // Handle the error, show a user-friendly message, etc.
+    //     });
+
     
 };
 
-var displayFive = function(forecastData, searchTerm) {
-
+var displayFive = function (forecastData, searchTerm) {
     console.log(forecastData);
     console.log(searchTerm);
 
+    for (let i = 0; i < forecastData.list.length; i++){
+
+        var temper = forecastData.list[i].main.temp;
+        //console.log(temper);
+        var humid = forecastData.list[i].main.humidity;
+        var high = forecastData.list[i].main.temp_max;
+        var low = forecastData.list[i].main.temp_min;
+
+        var weatherContainer = document.createElement('div');
+        weatherContainer.classList = 'card-body';
+        fiveCard.appendChild(weatherContainer);
+        
+        var title = document.createElement('h5');
+        title.classList = 'card-title';
+        const a = dayjs();
+        const b = a.add(0, 'day');
+        b.format('MMM, DD');
+        title.textContent = b;
+        weatherContainer.appendChild(title);
+
+        var temperP = document.createElement('p');
+        temperP.classList = 'card-text';
+        temperP.textContent = 'Temperature: ' + temper;
+        weatherContainer.appendChild(temperP);
+
+        var humidP = document.createElement('p');
+        humidP.classList = 'card-text';
+        humidP.textContent = 'Humidity: ' + humid;
+        weatherContainer.appendChild(humidP);
+
+        var highP = document.createElement('p');
+        highP.classList = 'card-text';
+        highP.textContent = 'High: ' + high;
+        weatherContainer.appendChild(highP);
+
+        var lowP = document.createElement('p');
+        lowP.classList = 'card-text';
+        lowP.textContent = 'Low: ' + low;
+        weatherContainer.appendChild(lowP);
+
+    }    
+};
 
 
-    // create containers to hold five day weather
-    // need to add icons to these also :i
-    
-    for (let i = 0; i < forecastData.length; i++) {
+var formSubmitHandler = function(event) {
 
-        var forecast = forecastData[i];
+    event.preventDefault();
 
-        console.log(forecast);
+    // get value from input element 
+    var city = cityInputEl.value.trim();
+    if(city) {
+        getWeather(city);
+        fiveDay(city);
+        cityInputEl.value = '';
+    } else {
+        alert('Enter a city you dingus');
     }
-
-
+  
 };
 
 
